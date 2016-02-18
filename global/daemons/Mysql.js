@@ -35,9 +35,12 @@ function whenPostInit()
             _mysqlDbMap[value.database] = mysql.createPool(value);
 
             // 连接mysql
-            log('连接 mysql 数据库(%s)中...', value.database);
+            log('连接 mysql 数据库(%s/%s)中...', value.database, value.host);
             _mysqlDbMap[value.database].getConnection(function(err, connection){
-                log('连接 mysql 数据库(%s)成功', value.database);
+                if (err)
+                    error('连接 mysql 数据库(%s/%s)失败', value.database, value.host);
+                else
+                    log('连接 mysql 数据库(%s/%s)成功', value.database, value.host);
             });
         }
     }
