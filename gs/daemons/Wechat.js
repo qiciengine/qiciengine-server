@@ -313,14 +313,14 @@ function wechatLogin(res, appid, codeOrSessionId, isCode)
 
             trace('getUserInfo : %s', url);
 
-            https.get(url, function(res) {
-                res.on('data', function(d) {
+            https.get(url, function(http_res) {
+                http_res.on('data', function(d) {
                     var ret = JSON.parse(d);
                     log('ret: %j', ret)
 
                     var openid = ret.openid;
                     var unionid = ret.unionid;
-                    if (openid && unionid)
+                    if (openid)
                     {
                         // 返回用户信息
                         COMMUNICATE_D.sendMessage(res, {
